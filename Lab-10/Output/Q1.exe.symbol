@@ -1,0 +1,21 @@
+< THE SYMBOL TABLE >  Q1.exe  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+DATA                     	00000     	-5        	SEGMENT   	(ITSELF)  
+STR1                     	00000     	1         	VAR       	data      
+STR_SIZE                 	00016     	2         	VAR       	data      
+IS_PALINDROME            	00018     	1         	VAR       	data      
+STACK                    	00002     	-5        	SEGMENT   	(ITSELF)  
+CODE                     	00012     	-5        	SEGMENT   	(ITSELF)  
+START                    	00000     	-1        	LABEL     	code      
+COMPARE                  	0000A     	-1        	LABEL     	code      
+NO_INC                   	00016     	-1        	LABEL     	code      
+DONE                     	0001D     	-1        	LABEL     	code      
+COMPARE2                 	00028     	-1        	LABEL     	code      
+NOT_PALINDROME           	00038     	-1        	LABEL     	code      
+DONE2                    	0003D     	-1        	LABEL     	code      
+===================================================================================================
+[ 5/20/2022  --  11:21:28 PM ] 
+< END >
+ 
