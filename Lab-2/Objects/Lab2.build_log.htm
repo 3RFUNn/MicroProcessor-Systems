@@ -1,0 +1,156 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.30.0.0
+Copyright (C) 2020 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: farbod fooladi, FLD-org, LIC=QF82M-XW8QY-EVB1R-K3D0B-Q86HU-CQF4S
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.30.0.0
+Toolchain Path:  E:\Keil MDK-ARM 5.30\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.14
+Assembler:       Armasm.exe V6.14
+Linker/Locator:  ArmLink.exe V6.14
+Library Manager: ArmAr.exe V6.14
+Hex Converter:   FromElf.exe V6.14
+CPU DLL:         SARMCM3.DLL V5.30.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      UL2CM3.DLL V1.163.3.0
+Dialog DLL:      TCM.DLL V1.42.0.0
+ 
+<h2>Project:</h2>
+C:\Users\lenovo\Desktop\farhad\Lab2.uvprojx
+Project File Date:  03/04/2022
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.14', folder: 'E:\Keil MDK-ARM 5.30\Keil_v5\ARM\ARMCLANG\Bin'
+Build target 'Target 1'
+Code.c(8): warning: no previous extern declaration for non-static variable 'red_green' [-Wmissing-variable-declarations]
+int red_green = 0x28;
+    ^
+Code.c(8): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+int red_green = 0x28;
+^
+Code.c(9): warning: no previous extern declaration for non-static variable 'counter' [-Wmissing-variable-declarations]
+int counter = 9;
+    ^
+Code.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+int counter = 9;
+^
+Code.c(61): warning: implicit conversion changes signedness: 'int' to 'uint32_t' (aka 'unsigned int') [-Wsign-conversion]
+                        GPIOC -> ODR = red_green;
+                                     ~ ^~~~~~~~~
+Code.c(62): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+                        GPIOC -> ODR &= ~0xFF00;
+                                     ~~ ^~~~~~~
+Code.c(63): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+                        GPIOC -> ODR |= BCD_to_seven_segment_decoder(counter) << 8;
+                                     ~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~
+Code.c(85): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
+                        return 0b0000001;
+                               ^
+Code.c(87): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
+                        return 0b1001111;
+                               ^
+Code.c(89): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
+                        return 0b0010010;
+                               ^
+Code.c(91): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
+                        return 0b0000110;
+                               ^
+Code.c(93): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
+                        return 0b1001100;
+                               ^
+Code.c(95): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
+                        return 0b0100100;
+                               ^
+Code.c(97): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
+                        return 0b0100000;
+                               ^
+Code.c(99): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
+                        return 0b0001111;
+                               ^
+Code.c(101): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
+                        return 0b0000000;
+                               ^
+Code.c(103): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
+                        return 0b0000100;
+                               ^
+Code.c(7): warning: no previous extern declaration for non-static variable 'button_1_counter' [-Wmissing-variable-declarations]
+int button_1_counter, button_2_counter, pressed_1, pressed_2, counter_flag, ms;
+    ^
+Code.c(7): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+int button_1_counter, button_2_counter, pressed_1, pressed_2, counter_flag, ms;
+^
+Code.c(7): warning: no previous extern declaration for non-static variable 'button_2_counter' [-Wmissing-variable-declarations]
+int button_1_counter, button_2_counter, pressed_1, pressed_2, counter_flag, ms;
+                      ^
+Code.c(7): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+int button_1_counter, button_2_counter, pressed_1, pressed_2, counter_flag, ms;
+^
+Code.c(7): warning: no previous extern declaration for non-static variable 'pressed_1' [-Wmissing-variable-declarations]
+int button_1_counter, button_2_counter, pressed_1, pressed_2, counter_flag, ms;
+                                        ^
+Code.c(7): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+int button_1_counter, button_2_counter, pressed_1, pressed_2, counter_flag, ms;
+^
+Code.c(7): warning: no previous extern declaration for non-static variable 'pressed_2' [-Wmissing-variable-declarations]
+int button_1_counter, button_2_counter, pressed_1, pressed_2, counter_flag, ms;
+                                                   ^
+Code.c(7): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+int button_1_counter, button_2_counter, pressed_1, pressed_2, counter_flag, ms;
+^
+Code.c(7): warning: no previous extern declaration for non-static variable 'counter_flag' [-Wmissing-variable-declarations]
+int button_1_counter, button_2_counter, pressed_1, pressed_2, counter_flag, ms;
+                                                              ^
+Code.c(7): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+int button_1_counter, button_2_counter, pressed_1, pressed_2, counter_flag, ms;
+^
+Code.c(7): warning: no previous extern declaration for non-static variable 'ms' [-Wmissing-variable-declarations]
+int button_1_counter, button_2_counter, pressed_1, pressed_2, counter_flag, ms;
+                                                                            ^
+Code.c(7): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+int button_1_counter, button_2_counter, pressed_1, pressed_2, counter_flag, ms;
+^
+21 warnings generated.
+compiling Code.c...
+linking...
+Program Size: Code=880 RO-data=436 RW-data=8 ZI-data=1656  
+FromELF: creating hex file...
+".\Objects\Lab2.axf" - 0 Error(s), 21 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.8.0.pack
+                ARM.CMSIS.5.8.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.5.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.7.0.pack
+                Keil.STM32F4xx_DFP.2.7.0
+                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+   * Component: Startup Version: 2.4.2
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_Target_1
+  E:\Keil MDK-ARM 5.30\Arm Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include
+  E:\Keil MDK-ARM 5.30\Arm Packs\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.5.0
+
+   * Component: Keil::Device:Startup:2.4.2
+      Source file:   MDK\Device\Source\ARM\STM32F401xx_OPT.s
+      Include file:  Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
+      Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
+      Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f401xe.s
+      Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c
+Build Time Elapsed:  00:00:01
+</pre>
+</body>
+</html>
