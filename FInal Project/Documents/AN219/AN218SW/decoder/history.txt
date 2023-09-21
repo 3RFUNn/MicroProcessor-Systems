@@ -1,0 +1,14 @@
+DTMF Decoder 1.12
+- removed CR + LF characters from the character strings sent on UART
+
+DTMF Decoder 1.11
+- corrected a time measuring related bug
+
+DTMF Decoder 1.1
+- added time measuring - the time when a character was decoded is sent on UART
+
+DTMF Decoder 1.0
+- DTMF detection with Goertzel algorithm
+- the decoded character is displayed on 7-segment cell
+- the decoded character is sent on UART
+- low power mode
