@@ -1,0 +1,438 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+Q2.exe -- emu8086 assembler version: 4.08  
+ 
+[ 5/20/2022  --  11:21:03 PM ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       .MODEL SMALL
+[   2]        :                                       .STACK 100H
+[   3]        :                                       .DATA
+[   4]    0100: 00 00 00 00                           DATA1   DD 0
+[   5]    0104: 00 00 00 00                           DATA2   DD 0
+[   6]    0108: 00 00 00 00 00 00 00 00               DATA3   DD 0, 0
+[   7]    0110: 00 00 00 00 00 00 00 00               DATA4   DD 0,
+[   8]    0118: 0A 00 00 00                           TEN     DD 10
+[   9]    011C: 00 00 00 00                           R       DD 0
+[  10]    0120: 00 00 00 00 00 00 00 00               MUL_RES DW 0, 0, 0, 0
+[  11]    0128: 00 00                                 SIGN    DW 0
+[  12]        :                                       
+[  13]        :                                       
+[  14]        :                                       
+[  15]        :                                       .CODE
+[  16]    0130:                                       MAIN PROC FAR
+[  17]    0130: B8 10 00                              MOV AX,@DATA
+[  18]    0133: 8E D8                                 MOV DS,AX
+[  19]        :                                       
+[  20]    0135: BB 00 00                              LEA BX, DATA1
+[  21]    0138: E8 46 00                              CALL GETNUM
+[  22]        :                                       
+[  23]    013B: BA 0D 00                              MOV DX,13
+[  24]    013E: B4 02                                 MOV AH,2
+[  25]    0140: CD 21                                 INT 21H
+[  26]    0142: BA 0A 00                              MOV DX,10
+[  27]    0145: B4 02                                 MOV AH,2
+[  28]    0147: CD 21                                 INT 21H
+[  29]        :                                       
+[  30]    0149: BB 04 00                              LEA BX, DATA2
+[  31]    014C: E8 32 00                              CALL GETNUM
+[  32]        :                                       
+[  33]    014F: BA 0D 00                              MOV DX,13
+[  34]    0152: B4 02                                 MOV AH,2
+[  35]    0154: CD 21                                 INT 21H
+[  36]    0156: BA 0A 00                              MOV DX,10
+[  37]    0159: B4 02                                 MOV AH,2
+[  38]    015B: CD 21                                 INT 21H
+[  39]        :                                       
+[  40]        :                                       
+[  41]    015D: E8 2E 01                              CALL MULTNUMS
+[  42]    0160: E8 03 02                              CALL DIVNUMS
+[  43]        :                                       
+[  44]        :                                       
+[  45]    0163: BB 08 00                              LEA BX, DATA3
+[  46]    0166: E8 BA 00                              CALL PRINTNUM
+[  47]        :                                       
+[  48]    0169: BA 0D 00                              MOV DX,13
+[  49]    016C: B4 02                                 MOV AH,2
+[  50]    016E: CD 21                                 INT 21H
+[  51]    0170: BA 0A 00                              MOV DX,10
+[  52]    0173: B4 02                                 MOV AH,2
+[  53]    0175: CD 21                                 INT 21H
+[  54]        :                                       
+[  55]        :                                       
+[  56]    0177: BB 10 00                              LEA BX, DATA4
+[  57]    017A: E8 A6 00                              CALL PRINTNUM
+[  58]        :                                       
+[  59]    017D: B4 4C                                 MOV AH,4CH
+[  60]    017F: CD 21                                 INT 21H
+[  61]        :                                       
+[  62]        :                                       MAIN ENDP
+[  63]        :                                       
+[  64]        :                                       
+[  65]    0181:                                       GETNUM PROC
+[  66]        :                                       
+[  67]        :                                       
+[  68]    0181: B4 01                                 MOV AH,1
+[  69]    0183: CD 21                                 INT 21H
+[  70]    0185: 3C 2D                                 CMP AL, 0X2D
+[  71]    0187: 75 09                                 JNE FIRST_CHAR
+[  72]    0189: 83 36 28 00 01                        XOR [SIGN], 1
+[  73]        :                                       
+[  74]    018E:                                       GET_CHAR:
+[  75]    018E: B4 01                                 MOV AH,1
+[  76]    0190: CD 21                                 INT 21H
+[  77]    0192:                                       FIRST_CHAR:
+[  78]    0192: 8A C8                                 MOV CL,AL
+[  79]    0194: B5 00                                 MOV CH, 0
+[  80]    0196: 83 E9 30                              SUB CX, 48
+[  81]    0199: 3C 0D                                 CMP AL, 13
+[  82]    019B: 74 5E                                 JE CHECK_SIGN
+[  83]    019D: 8B 07                                 MOV AX,[BX]
+[  84]    019F: F7 26 18 00                           MUL [TEN]
+[  85]    01A3: A3 20 00                              MOV [MUL_RES],AX
+[  86]    01A6: 89 16 22 00                           MOV [MUL_RES + 2],DX
+[  87]    01AA: 8B 47 02                              MOV AX,[BX + 2]
+[  88]    01AD: F7 26 18 00                           MUL [TEN]
+[  89]    01B1: 01 06 22 00                           ADD [MUL_RES + 2],AX
+[  90]    01B5: 11 16 24 00                           ADC [MUL_RES + 4],DX
+[  91]    01B9: 8B 07                                 MOV AX,[BX]
+[  92]    01BB: F7 26 1A 00                           MUL [TEN + 2]
+[  93]    01BF: 01 06 22 00                           ADD [MUL_RES + 2],AX
+[  94]    01C3: 11 16 24 00                           ADC [MUL_RES + 4],DX
+[  95]    01C7: 83 16 26 00 00                        ADC [MUL_RES + 6], 0
+[  96]    01CC: 8B 47 02                              MOV AX,[BX + 2]
+[  97]    01CF: F7 26 1A 00                           MUL [TEN + 2]
+[  98]    01D3: 01 06 24 00                           ADD [MUL_RES + 4],AX
+[  99]    01D7: 11 16 26 00                           ADC [MUL_RES + 6],DX
+[ 100]        :                                       
+[ 101]    01DB: 01 0E 20 00                           ADD [MUL_RES], CX
+[ 102]    01DF: 83 16 22 00 00                        ADC [MUL_RES + 2], 0
+[ 103]    01E4: 83 16 24 00 00                        ADC [MUL_RES + 4], 0
+[ 104]    01E9: 83 16 26 00 00                        ADC [MUL_RES + 6], 0
+[ 105]        :                                       
+[ 106]    01EE: A1 20 00                              MOV AX, [MUL_RES]
+[ 107]    01F1: 89 07                                 MOV [BX], AX
+[ 108]    01F3: A1 22 00                              MOV AX, [MUL_RES+2]
+[ 109]    01F6: 89 47 02                              MOV [BX+2], AX
+[ 110]        :                                       
+[ 111]    01F9: EB 93                                 JMP GET_CHAR
+[ 112]        :                                       
+[ 113]    01FB:                                       CHECK_SIGN:
+[ 114]    01FB: 83 3E 28 00 00                        CMP [SIGN], 0
+[ 115]    0200: 74 1A                                 JE RES_POS
+[ 116]    0202: F6 17                                 NOT [BX]
+[ 117]    0204: F6 57 01                              NOT [BX + 1]
+[ 118]    0207: F6 57 02                              NOT [BX + 2]
+[ 119]    020A: F6 57 03                              NOT [BX + 3]
+[ 120]        :                                       
+[ 121]    020D: 80 07 01                              ADD [BX], 1
+[ 122]    0210: 80 57 01 00                           ADC [BX + 1], 0
+[ 123]    0214: 80 57 02 00                           ADC [BX + 2], 0
+[ 124]    0218: 80 57 03 00                           ADC [BX + 3], 0
+[ 125]    021C:                                       RES_POS:
+[ 126]        :                                       
+[ 127]    021C: C7 06 28 00 00 00                     MOV [SIGN], 0
+[ 128]    0222: C3                                    RET
+[ 129]        :                                       GETNUM ENDP
+[ 130]        :                                       
+[ 131]        :                                       
+[ 132]    0223:                                       PRINTNUM PROC
+[ 133]    0223: B6 00                                 MOV DH, 0
+[ 134]    0225: B2 21                                 MOV DL, '!'
+[ 135]    0227: 52                                    PUSH DX
+[ 136]        :                                       
+[ 137]    0228: 8B 47 02                              MOV AX, [BX + 2]
+[ 138]    022B: 25 00 80                              AND AX, 0X8000
+[ 139]    022E: 3D 00 00                              CMP AX, 0
+[ 140]    0231: 74 20                                 JE  PRINT_RES_POS
+[ 141]    0233: B2 2D                                 MOV DL, '-'
+[ 142]    0235: B4 02                                 MOV AH,2
+[ 143]    0237: CD 21                                 INT 21H
+[ 144]    0239: F6 17                                 NOT [BX]
+[ 145]    023B: F6 57 01                              NOT [BX + 1]
+[ 146]    023E: F6 57 02                              NOT [BX + 2]
+[ 147]    0241: F6 57 03                              NOT [BX + 3]
+[ 148]        :                                       
+[ 149]    0244: 80 07 01                              ADD [BX], 1
+[ 150]    0247: 80 57 01 00                           ADC [BX + 1], 0
+[ 151]    024B: 80 57 02 00                           ADC [BX + 2], 0
+[ 152]    024F: 80 57 03 00                           ADC [BX + 3], 0
+[ 153]        :                                       
+[ 154]    0253:                                       PRINT_RES_POS:
+[ 155]    0253: 80 7F 02 00                           CMP [BX + 2], 0
+[ 156]    0257: 75 07                                 JNE NOT_ZERO
+[ 157]    0259: 80 3F 00                              CMP [BX], 0
+[ 158]    025C: 75 02                                 JNE NOT_ZERO
+[ 159]    025E: EB 18                                 JMP DISPLAY
+[ 160]    0260:                                       NOT_ZERO:
+[ 161]    0260: 33 D2                                 XOR DX,DX
+[ 162]    0262: 8B 47 02                              MOV AX, [BX+2]
+[ 163]    0265: F7 36 18 00                           DIV [TEN]
+[ 164]    0269: 50                                    PUSH AX
+[ 165]    026A: 8B 07                                 MOV AX, [BX]
+[ 166]    026C: F7 36 18 00                           DIV [TEN]
+[ 167]    0270: 89 07                                 MOV [BX], AX
+[ 168]    0272: 8F 47 02                              POP [BX + 2]
+[ 169]    0275: 52                                    PUSH DX
+[ 170]    0276: EB DB                                 JMP PRINT_RES_POS
+[ 171]    0278:                                       DISPLAY:
+[ 172]    0278: 5A                                    POP DX
+[ 173]    0279: 80 FA 21                              CMP DL, '!'
+[ 174]    027C: 74 09                                 JE DISP_DONE
+[ 175]    027E: 80 C2 30                              ADD DL, 48
+[ 176]    0281: B4 02                                 MOV AH,2
+[ 177]    0283: CD 21                                 INT 21H
+[ 178]    0285: EB F1                                 JMP DISPLAY
+[ 179]    0287:                                       DISP_DONE:
+[ 180]    0287: C7 06 28 00 00 00                     MOV [SIGN], 0
+[ 181]    028D: C3                                    RET
+[ 182]        :                                       PRINTNUM ENDP
+[ 183]        :                                       
+[ 184]        :                                       
+[ 185]        :                                       
+[ 186]    028E:                                       MULTNUMS PROC
+[ 187]        :                                       
+[ 188]    028E: FF 36 00 00                           PUSH [DATA1]
+[ 189]    0292: FF 36 02 00                           PUSH [DATA1 + 2]
+[ 190]    0296: FF 36 04 00                           PUSH [DATA2]
+[ 191]    029A: FF 36 06 00                           PUSH [DATA2 + 2]
+[ 192]        :                                       
+[ 193]    029E: B8 00 80                              MOV AX, 0X8000
+[ 194]    02A1: 23 06 02 00                           AND AX, [DATA1 + 2]
+[ 195]    02A5: 3D 00 00                              CMP AX, 0
+[ 196]    02A8: 74 17                                 JE DATA1_POS
+[ 197]    02AA: 83 36 28 00 01                        XOR [SIGN], 1
+[ 198]        :                                       
+[ 199]    02AF: F7 16 00 00                           NOT [DATA1]
+[ 200]    02B3: F7 16 02 00                           NOT [DATA1 + 2]
+[ 201]    02B7: 83 06 00 00 01                        ADD [DATA1], 1
+[ 202]    02BC: 83 16 02 00 00                        ADC [DATA1 + 2], 0
+[ 203]        :                                       
+[ 204]    02C1:                                       DATA1_POS:
+[ 205]    02C1: B8 00 80                              MOV AX, 0X8000
+[ 206]    02C4: 23 06 06 00                           AND AX, [DATA2 + 2]
+[ 207]    02C8: 3D 00 00                              CMP AX, 0
+[ 208]    02CB: 74 17                                 JE DATA2_POS
+[ 209]    02CD: 83 36 28 00 01                        XOR [SIGN], 1
+[ 210]        :                                       
+[ 211]    02D2: F7 16 04 00                           NOT [DATA2]
+[ 212]    02D6: F7 16 06 00                           NOT [DATA2 + 2]
+[ 213]    02DA: 83 06 04 00 01                        ADD [DATA2], 1
+[ 214]    02DF: 83 16 06 00 00                        ADC [DATA2 + 2], 0
+[ 215]        :                                       
+[ 216]    02E4:                                       DATA2_POS:
+[ 217]    02E4: A1 00 00                              MOV AX,[DATA1]
+[ 218]    02E7: F7 26 04 00                           MUL [DATA2]
+[ 219]    02EB: A3 08 00                              MOV [DATA3],AX
+[ 220]    02EE: 89 16 0A 00                           MOV [DATA3 + 2],DX
+[ 221]    02F2: A1 02 00                              MOV AX,[DATA1 + 2]
+[ 222]    02F5: F7 26 04 00                           MUL [DATA2]
+[ 223]    02F9: 01 06 0A 00                           ADD [DATA3 + 2],AX
+[ 224]    02FD: 11 16 0C 00                           ADC [DATA3 + 4],DX
+[ 225]    0301: A1 00 00                              MOV AX,[DATA1]
+[ 226]    0304: F7 26 06 00                           MUL [DATA2 + 2]
+[ 227]    0308: 01 06 0A 00                           ADD [DATA3 + 2],AX
+[ 228]    030C: 11 16 0C 00                           ADC [DATA3 + 4],DX
+[ 229]    0310: 83 16 0E 00 00                        ADC [DATA3 + 6], 0
+[ 230]    0315: A1 02 00                              MOV AX,[DATA1 + 2]
+[ 231]    0318: F7 26 06 00                           MUL [DATA2 + 2]
+[ 232]    031C: 01 06 0C 00                           ADD [DATA3 + 4],AX
+[ 233]    0320: 11 16 0E 00                           ADC [DATA3 + 6],DX
+[ 234]        :                                       
+[ 235]        :                                       
+[ 236]    0324: 83 3E 28 00 00                        CMP [SIGN], 0
+[ 237]    0329: 74 24                                 JE MUL_RES_POS
+[ 238]    032B: F7 16 08 00                           NOT [DATA3]
+[ 239]    032F: F7 16 0A 00                           NOT [DATA3 + 2]
+[ 240]    0333: F7 16 0C 00                           NOT [DATA3 + 4]
+[ 241]    0337: F7 16 0E 00                           NOT [DATA3 + 6]
+[ 242]        :                                       
+[ 243]    033B: 83 06 08 00 01                        ADD [DATA3], 1
+[ 244]    0340: 83 16 0A 00 00                        ADC [DATA3 + 2], 0
+[ 245]    0345: 83 16 0C 00 00                        ADC [DATA3 + 4], 0
+[ 246]    034A: 83 16 0E 00 00                        ADC [DATA3 + 6], 0
+[ 247]    034F:                                       MUL_RES_POS:
+[ 248]        :                                       
+[ 249]    034F: C7 06 28 00 00 00                     MOV [SIGN], 0
+[ 250]    0355: 8F 06 06 00                           POP [DATA2 + 2]
+[ 251]    0359: 8F 06 04 00                           POP [DATA2]
+[ 252]    035D: 8F 06 02 00                           POP [DATA1 + 2]
+[ 253]    0361: 8F 06 00 00                           POP [DATA1]
+[ 254]        :                                       
+[ 255]    0365: C3                                    RET
+[ 256]        :                                       MULTNUMS ENDP
+[ 257]        :                                       
+[ 258]        :                                       
+[ 259]        :                                       
+[ 260]        :                                       
+[ 261]    0366:                                       DIVNUMS PROC NEAR
+[ 262]        :                                       
+[ 263]        :                                       
+[ 264]    0366: FF 36 00 00                           PUSH [DATA1]
+[ 265]    036A: FF 36 02 00                           PUSH [DATA1 + 2]
+[ 266]    036E: FF 36 04 00                           PUSH [DATA2]
+[ 267]    0372: FF 36 06 00                           PUSH [DATA2 + 2]
+[ 268]        :                                       
+[ 269]    0376: B8 00 80                              MOV AX, 0X8000
+[ 270]    0379: 23 06 02 00                           AND AX, [DATA1 + 2]
+[ 271]    037D: 3D 00 00                              CMP AX, 0
+[ 272]    0380: 74 17                                 JE DATA1_POS_DIV
+[ 273]    0382: 83 36 28 00 01                        XOR [SIGN], 1
+[ 274]        :                                       
+[ 275]    0387: F7 16 00 00                           NOT [DATA1]
+[ 276]    038B: F7 16 02 00                           NOT [DATA1 + 2]
+[ 277]    038F: 83 06 00 00 01                        ADD [DATA1], 1
+[ 278]    0394: 83 16 02 00 00                        ADC [DATA1 + 2], 0
+[ 279]        :                                       
+[ 280]    0399:                                       DATA1_POS_DIV:
+[ 281]    0399: B8 00 80                              MOV AX, 0X8000
+[ 282]    039C: 23 06 06 00                           AND AX, [DATA2 + 2]
+[ 283]    03A0: 3D 00 00                              CMP AX, 0
+[ 284]    03A3: 74 17                                 JE DATA2_POS_DIV
+[ 285]    03A5: 83 36 28 00 01                        XOR [SIGN], 1
+[ 286]        :                                       
+[ 287]    03AA: F7 16 04 00                           NOT [DATA2]
+[ 288]    03AE: F7 16 06 00                           NOT [DATA2 + 2]
+[ 289]    03B2: 83 06 04 00 01                        ADD [DATA2], 1
+[ 290]    03B7: 83 16 06 00 00                        ADC [DATA2 + 2], 0
+[ 291]        :                                       
+[ 292]    03BC:                                       DATA2_POS_DIV:
+[ 293]        :                                       
+[ 294]        :                                       
+[ 295]    03BC: B1 20                                 MOV CL, 32
+[ 296]        :                                       
+[ 297]    03BE:                                       DIV_LOOP:
+[ 298]    03BE: FE C9                                 DEC CL
+[ 299]        :                                       
+[ 300]        :                                       
+[ 301]    03C0: D1 26 1E 00                           SHL [R + 2], 1
+[ 302]    03C4: A1 1C 00                              MOV AX, [R]
+[ 303]    03C7: D1 E8 D1 E8 D1 E8 D1 E8 D1 E8 D1 E8   SHR AX, 15
+                D1 E8 D1 E8 D1 E8 D1 E8 D1 E8 D1 E8 
+                D1 E8 D1 E8 D1 E8                   
+[ 304]    03E5: 09 06 1E 00                           OR  [R + 2], AX
+[ 305]    03E9: D1 26 1C 00                           SHL [R], 1
+[ 306]        :                                       
+[ 307]        :                                       
+[ 308]        :                                       
+[ 309]    03ED: 80 F9 0F                              CMP CL, 15
+[ 310]    03F0: 77 0C                                 JA ABOVE1
+[ 311]    03F2: A1 00 00                              MOV AX, [DATA1]
+[ 312]    03F5: D3 E8                                 SHR AX, CL
+[ 313]    03F7: 25 01 00                              AND AX, 1
+[ 314]    03FA: 09 06 1C 00                           OR  [R], AX
+[ 315]        :                                       
+[ 316]    03FE:                                       ABOVE1:
+[ 317]    03FE: A1 02 00                              MOV AX, [DATA1 + 2]
+[ 318]    0401: 80 E9 10                              SUB CL, 16
+[ 319]    0404: D3 E8                                 SHR AX, CL
+[ 320]    0406: 80 C1 10                              ADD CL, 16
+[ 321]    0409: 25 01 00                              AND AX, 1
+[ 322]    040C: 09 06 1C 00                           OR  [R], AX
+[ 323]    0410: EB 00                                 JMP CALC
+[ 324]        :                                       
+[ 325]        :                                       
+[ 326]    0412:                                       CALC:
+[ 327]    0412: A1 06 00                              MOV AX, [DATA2 + 2]
+[ 328]    0415: 3B 06 1E 00                           CMP AX, [R + 2]
+[ 329]    0419: 77 39                                 JA CHECK_LOOP
+[ 330]    041B: 72 09                                 JB BELOW
+[ 331]    041D: A1 04 00                              MOV AX, [DATA2]
+[ 332]    0420: 3B 06 1C 00                           CMP AX, [R]
+[ 333]    0424: 77 2E                                 JA CHECK_LOOP
+[ 334]    0426:                                       BELOW:
+[ 335]    0426: A1 06 00                              MOV AX, [DATA2 + 2]
+[ 336]    0429: 8B 16 04 00                           MOV DX, [DATA2]
+[ 337]    042D: 29 16 1C 00                           SUB [R], DX
+[ 338]    0431: 19 06 1E 00                           SBB [R + 2], AX
+[ 339]        :                                       
+[ 340]    0435: 80 F9 0F                              CMP CL, 15
+[ 341]    0438: 77 0B                                 JA ABOVE
+[ 342]    043A: B8 01 00                              MOV AX, 1
+[ 343]    043D: D3 E0                                 SHL AX, CL
+[ 344]    043F: 09 06 10 00                           OR [DATA4], AX
+[ 345]    0443: EB 0F                                 JMP CHECK_LOOP
+[ 346]        :                                       
+[ 347]    0445:                                       ABOVE:
+[ 348]    0445: B8 01 00                              MOV AX, 1
+[ 349]    0448: 80 E9 10                              SUB CL, 16
+[ 350]    044B: D3 E0                                 SHL AX, CL
+[ 351]    044D: 80 C1 10                              ADD CL, 16
+[ 352]    0450: 09 06 12 00                           OR [DATA4 + 2], AX
+[ 353]        :                                       
+[ 354]        :                                       
+[ 355]        :                                       
+[ 356]    0454:                                       CHECK_LOOP:
+[ 357]    0454: 80 F9 00                              CMP CL, 0
+[ 358]    0457: 74 03 E9 62 FF                        JNE DIV_LOOP
+[ 359]    045C: 83 3E 28 00 00                        CMP [SIGN], 0
+[ 360]    0461: 74 24                                 JE DIV_RES_POS
+[ 361]    0463: F7 16 10 00                           NOT [DATA4]
+[ 362]    0467: F7 16 12 00                           NOT [DATA4 + 2]
+[ 363]    046B: F7 16 14 00                           NOT [DATA4 + 4]
+[ 364]    046F: F7 16 16 00                           NOT [DATA4 + 6]
+[ 365]        :                                       
+[ 366]    0473: 83 06 10 00 01                        ADD [DATA4], 1
+[ 367]    0478: 83 16 12 00 00                        ADC [DATA4 + 2], 0
+[ 368]    047D: 83 16 14 00 00                        ADC [DATA4 + 4], 0
+[ 369]    0482: 83 16 16 00 00                        ADC [DATA4 + 6], 0
+[ 370]    0487:                                       DIV_RES_POS:
+[ 371]        :                                       
+[ 372]    0487: C7 06 28 00 00 00                     MOV [SIGN], 0
+[ 373]    048D: 8F 06 06 00                           POP [DATA2 + 2]
+[ 374]    0491: 8F 06 04 00                           POP [DATA2]
+[ 375]    0495: 8F 06 02 00                           POP [DATA1 + 2]
+[ 376]    0499: 8F 06 00 00                           POP [DATA1]
+[ 377]    049D: C3                                    RET
+[ 378]        :                                       DIVNUMS ENDP
+[ 379]        :                                       
+[ 380]        :                                       END MAIN
+[ 381]        :                                       
+ 
+===================================================================================================
+ 
+EXE HEADER - bytes from 0000 to 01FF inclusive.
+
+0000: 4D      -   exe signature (M)
+0001: 5A      -   exe signature (Z)
+0002: 9E      -   bytes on last page (l.byte)
+0003: 00      -   bytes on last page (h.byte)
+0004: 04      -   512 byte pages in file (l.byte)
+0005: 00      -   512 byte pages in file (h.byte)
+0006: 01      -   relocations (l.byte)
+0007: 00      -   relocations (h.byte)
+0008: 20      -   paragraphs in header (l.byte)
+0009: 00      -   paragraphs in header (h.byte)
+000A: 00      -   minimum memory (l.byte)
+000B: 00      -   minimum memory (h.byte)
+000C: FF      -   maximum memory (l.byte)
+000D: FF      -   maximum memory (h.byte)
+000E: 00      -   SS - stack segment (l.byte)
+000F: 00      -   SS - stack segment (h.byte)
+0010: 00      -   SP - stack pointer (l.byte)
+0011: 01      -   SP - stack pointer (h.byte)
+0012: 4F      -   check sum (l.byte)
+0013: 35      -   check sum (h.byte)
+0014: 00      -   IP - instruction pointer (l.byte)
+0015: 00      -   IP - instruction pointer (h.byte)
+0016: 13      -   CS - code segment (l.byte)
+0017: 00      -   CS - code segment (h.byte)
+0018: 1E      -   relocation table adress (l.byte)
+0019: 00      -   relocation table adress (h.byte)
+001A: 00      -   overlay number (l.byte)
+001B: 00      -   overlay number (h.byte)
+001C: 01      -   signature (l.byte)
+001D: 00      -   signature (h.byte)
+001E: 01      -   relocation table - offset inside segment (l.byte)
+001F: 00      -   relocation table - offset inside segment (h.byte)
+0020: 13      -   relocation table - segment anchor (l.byte)
+0021: 00      -   relocation table - segment anchor (h.byte)
+0022 to 01FF  -   reserved relocation area  (00) 
+
+
+
+
+===================================================================================================
