@@ -1,0 +1,59 @@
+data segment
+    str1 db 'tryyourbestsebruoyyrt', 0    
+    str_size dw 0 
+    is_palindrome db 1 
+    
+ends
+
+stack segment
+    dw   128  dup(0)
+ends
+
+code segment
+start:
+    mov ax, data
+    mov ds, ax
+
+    lea bx, str1 
+    mov dl, 0    
+    
+compare:
+    cmp [bx], 0 
+    je done      
+    cmp [bx], 'y'
+    jne no_inc
+    inc dl   
+    
+no_inc:
+    inc bx
+    inc [str_size]
+    jmp compare  
+    
+done:   
+    lea bx, str1 
+    lea di, str1
+    add di, str_size
+    dec di   
+compare2:    
+    cmp bx , di
+    ja done2
+    mov cx, [bx]
+    mov ax, [di] 
+    cmp al, cl
+    jne not_palindrome
+    inc bx
+    dec di
+    jmp compare2
+
+    
+
+not_palindrome:
+    mov [is_palindrome], 0            
+            
+done2:
+    
+    mov ax, 4c00h
+    int 21h    
+ends
+
+end start
