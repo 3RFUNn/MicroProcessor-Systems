@@ -1,0 +1,44 @@
+< THE SYMBOL TABLE >  Q2.exe  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+STACK                    	00000     	-5        	SEGMENT   	(ITSELF)  
+DATA                     	00010     	-5        	SEGMENT   	(ITSELF)  
+DATA1                    	00000     	2         	VAR       	data      
+DATA2                    	00004     	2         	VAR       	data      
+DATA3                    	00008     	2         	VAR       	data      
+DATA4                    	00010     	2         	VAR       	data      
+TEN                      	00018     	2         	VAR       	data      
+R                        	0001C     	2         	VAR       	data      
+MUL_RES                  	00020     	2         	VAR       	data      
+SIGN                     	00028     	2         	VAR       	data      
+CODE                     	00013     	-5        	SEGMENT   	(ITSELF)  
+MAIN                     	00000     	-1        	FAR       	code      
+GETNUM                   	00051     	-1        	NEAR      	code      
+GET_CHAR                 	0005E     	-1        	LABEL     	code      
+FIRST_CHAR               	00062     	-1        	LABEL     	code      
+CHECK_SIGN               	000CB     	-1        	LABEL     	code      
+RES_POS                  	000EC     	-1        	LABEL     	code      
+PRINTNUM                 	000F3     	-1        	NEAR      	code      
+PRINT_RES_POS            	00123     	-1        	LABEL     	code      
+NOT_ZERO                 	00130     	-1        	LABEL     	code      
+DISPLAY                  	00148     	-1        	LABEL     	code      
+DISP_DONE                	00157     	-1        	LABEL     	code      
+MULTNUMS                 	0015E     	-1        	NEAR      	code      
+DATA1_POS                	00191     	-1        	LABEL     	code      
+DATA2_POS                	001B4     	-1        	LABEL     	code      
+MUL_RES_POS              	0021F     	-1        	LABEL     	code      
+DIVNUMS                  	00236     	-1        	NEAR      	code      
+DATA1_POS_DIV            	00269     	-1        	LABEL     	code      
+DATA2_POS_DIV            	0028C     	-1        	LABEL     	code      
+DIV_LOOP                 	0028E     	-1        	LABEL     	code      
+ABOVE1                   	002CE     	-1        	LABEL     	code      
+CALC                     	002E2     	-1        	LABEL     	code      
+BELOW                    	002F6     	-1        	LABEL     	code      
+ABOVE                    	00315     	-1        	LABEL     	code      
+CHECK_LOOP               	00324     	-1        	LABEL     	code      
+DIV_RES_POS              	00357     	-1        	LABEL     	code      
+===================================================================================================
+[ 5/20/2022  --  11:21:03 PM ] 
+< END >
+ 
